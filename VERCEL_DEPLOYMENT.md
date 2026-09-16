@@ -17,3 +17,5 @@ Generated build files and installed dependencies are excluded from the ZIP. Verc
 The deployment package uses Next.js 15.5.24 and React 18.3.1. Next.js was updated from the original 13.5.1 release to a supported patched release; the existing design and application components remain in place. Reference: https://nextjs.org/blog/august-2026-security-release .
 
 Validation: source type checking and linting passed (image optimization warnings remain). Archive checks verify assets and package/lockfile consistency. The final production build could not be completed locally because the environment rejects child-process spawning with EPERM; validate the build in Vercel before publishing.
+
+Before using the dashboard, follow `SECURITY_SETUP.md`. Apply the new admin permission migration and approve your account in the existing Supabase project. Public signup has been removed; database editing is restricted to owner-approved user IDs.
