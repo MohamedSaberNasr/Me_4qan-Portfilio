@@ -4,21 +4,25 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, UserPlus, LogIn } from 'lucide-react';
+import { Lock, Mail, ArrowRight, LogIn } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 
 export default function LoginPage() {
-  const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) router.push('/admin');
-    });
+    let active = true;
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (data.session) {
+        const result = await supabase.rpc('is_portfolio_admin');
+        if (active && !result.error && result.data === true) router.replace('/admin');
+      }
+    }).catch(() => {});
+    return () => { active = false; };
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,23 +30,15 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      if (mode === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (error) throw error;
-        toast.success('Welcome back!');
-        router.push('/admin');
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-        });
-        if (error) throw error;
-        toast.success('Account created! You are now logged in.');
-        router.push('/admin');
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      const access = await supabase.rpc('is_portfolio_admin');
+      if (access.error || access.data !== true) {
+        await supabase.auth.signOut();
+        throw new Error('Admin access is not approved. Contact the site owner.');
       }
+      toast.success('Welcome back!');
+      router.replace('/admin');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Something went wrong';
       toast.error(message);
@@ -70,23 +66,23 @@ export default function LoginPage() {
             <Lock className="h-6 w-6 text-white" />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white">
-            {mode === 'login' ? 'Admin Login' : 'Create Account'}
+            Admin Login
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            {mode === 'login'
-              ? 'Sign in to manage your portfolio'
-              : 'Create an account to access the dashboard'}
+            Sign in with your approved admin account
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            <label htmlFor="admin-email" className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Email
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
+                id="admin-email"
+                autoComplete="username"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -98,12 +94,14 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            <label htmlFor="admin-password" className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
               Password
             </label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
+                id="admin-password"
+                autoComplete="current-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -124,33 +122,13 @@ export default function LoginPage() {
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
             ) : (
               <>
-                {mode === 'login' ? (
-                  <>
-                    <LogIn className="h-4 w-4" />
-                    Sign In
-                  </>
-                ) : (
-                  <>
-                    <UserPlus className="h-4 w-4" />
-                    Create Account
-                  </>
-                )}
+                <LogIn className="h-4 w-4" />
+                Sign In
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </>
             )}
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <button
-            onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-            className="text-sm text-muted-foreground transition-colors hover:text-violet-400"
-          >
-            {mode === 'login'
-              ? "Don't have an account? Sign up"
-              : 'Already have an account? Sign in'}
-          </button>
-        </div>
 
         <div className="mt-6 text-center">
           <Link
