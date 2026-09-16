@@ -23,7 +23,8 @@ export function Hero({ heroTitle, heroSubtitle }: { heroTitle: string; heroSubti
           onUpdate: self => root.current?.style.setProperty('--progress', String(self.progress)),
         }});
         tl.to('.hero-intro', { y: -35, autoAlpha: 0, duration: 0.8 }, 0.15)
-          .to('.logo-stage', { scale: mobile ? 1.08 : 1.18, rotationY: -12, rotationX: 7, duration: 1.2 }, 0)
+          .to('.logo-stage', { scale: mobile ? 1.08 : 1.18, rotationX: 16, duration: 1.2 }, 0)
+          .to('.logo-stage', { rotationY: 180, rotationX: -14, duration: 1.55, ease: 'power2.inOut' }, 0.4)
           .to('.logo-ring', { rotation: -18, z: -70, scale: 1.07, duration: 1.4 }, 0.2)
           .to('.logo-top', { y: -spread, rotation: -9, z: 70, scale: 1.05, duration: 1.1 }, 0.4)
           .to('.logo-right', { x: spread, rotation: 12, z: 100, scale: 1.08, duration: 1.1 }, 0.55)
@@ -32,9 +33,9 @@ export function Hero({ heroTitle, heroSubtitle }: { heroTitle: string; heroSubti
           .to('.hero-bloom', { opacity: 0.65, scale: 1.2, duration: 1.3 }, 0.3)
           .fromTo('.hero-chapter', { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 1)
           .to('.logo-part', { x: 0, y: 0, z: 0, rotation: 0, scale: 1, duration: 1.3, stagger: 0.065 }, 2.05)
-          .to('.logo-stage', { rotationY: 8, rotationX: -5, scale: 1, duration: 1.5 }, 2.05)
+          .to('.logo-stage', { rotationY: 188, rotationX: -5, scale: 1, duration: 1.5 }, 2.05)
           .to('.hero-chapter', { autoAlpha: 0, y: -20, duration: 0.5 }, 3.05)
-          .to('.logo-stage', { xPercent: mobile ? 0 : 36, yPercent: mobile ? -28 : 0, scale: mobile ? 0.60 : 0.72, rotationY: -10, duration: 1.2 }, 3.4)
+          .to('.logo-stage', { xPercent: mobile ? 0 : 36, yPercent: mobile ? -28 : 0, scale: mobile ? 0.60 : 0.72, rotationY: 170, duration: 1.2 }, 3.4)
           .fromTo('.hero-outro', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.9 }, 3.65)
           .to('.hero-bloom', { opacity: 0.18, duration: 1 }, 3.5);
         const pointer = root.current!;
@@ -53,7 +54,11 @@ export function Hero({ heroTitle, heroSubtitle }: { heroTitle: string; heroSubti
   return <section id="home" className="glass-hero" ref={root}>
     <div className="hero-lines" aria-hidden="true" /><div className="hero-bloom" aria-hidden="true" />
     <div className="hero-intro"><p className="hero-eyebrow">ME_4QAN / MOTION DESIGNER</p><h1><RevealText>{heroTitle}</RevealText></h1></div>
-    <div className="logo-stage" role="img" aria-label="Purple glass logo: circular ring and four leaves"><div className="logo-pointer">{parts.map(part => <img key={part} className={`logo-part logo-${part}`} src={`/logo/${part}.png`} alt="" width="1254" height="1254" draggable={false} />)}</div></div>
+    <div className="logo-stage" role="img" aria-label="Purple glass logo: circular ring and four leaves"><div className="logo-pointer">{parts.map(part => <div key={part} className={`logo-part logo-${part}`}>
+      {[5, 4, 3, 2, 1].map(depth => <img key={depth} className="logo-depth" style={{ transform: `translateZ(${-depth * 4}px)` }} src={`/logo/${part}.png`} alt="" width="1254" height="1254" draggable={false} />)}
+      <img className="logo-face" src={`/logo/${part}.png`} alt="" width="1254" height="1254" draggable={false} />
+      <div className="logo-texture" aria-hidden="true" style={{ maskImage: `url(/logo/${part}.png)`, WebkitMaskImage: `url(/logo/${part}.png)`, '--texture-delay': `${parts.indexOf(part) * -1.25}s` } as React.CSSProperties} />
+    </div>)}</div></div>
     <div className="hero-chapter" aria-hidden="true"><span>01 / FORM IN MOTION</span><p>Every detail.<br /><em>Alive.</em></p></div>
     <div className="hero-outro"><p className="hero-eyebrow">DESIGNED TO MOVE YOU</p><h2>Ideas become<br /><em>experiences.</em></h2><p>{heroSubtitle}</p><div className="hero-actions"><a href="#work">Explore selected work ↗</a><a href="#contact">Let’s work together</a></div></div>
     <div className="hero-bottom"><span>SAAS · TECHNOLOGY · 3D</span><a href="#work">SCROLL TO EXPLORE ↓</a><span className="hero-rail" aria-hidden="true"><i /></span></div>

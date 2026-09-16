@@ -23,7 +23,7 @@ export function AboutSection({ aboutText }: AboutSectionProps) {
   const headingBlur = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [2, 0, 0, 1]);
   const headingFilter = useTransform(headingBlur, (b) => `blur(${b}px)`);
 
-  const words = aboutText.split(' ');
+  const biography = `${aboutText} I'm also an AI Engineer. I have 6 years of experience in Adobe After Effects.`;
 
   return (
     <section ref={ref} id="about" className="relative px-6 py-24 sm:py-32">
@@ -66,7 +66,7 @@ export function AboutSection({ aboutText }: AboutSectionProps) {
           </h2>
 
           <p className="mt-8 text-lg leading-relaxed text-muted-foreground">
-            <RevealText delay={0.1}>{aboutText}</RevealText>
+            <RevealText delay={0.1}>{biography}</RevealText>
           </p>
         </motion.div>
       </motion.div>

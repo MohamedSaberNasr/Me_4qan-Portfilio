@@ -13,7 +13,7 @@ export function RevealText({ children, className = '', delay = 0 }: { children: 
     onPointerLeave={() => { x.set(0); y.set(0); }}
     initial="rest" whileInView="shown" viewport={{ once: true, amount: 0.2 }}>
     {children.split(/(\s+)/).map((word, i) => /^\s+$/.test(word) ? word : <motion.span aria-hidden="true" key={i} className="reveal-word"
-      variants={{ rest: { opacity: reduced ? 1 : 0, y: reduced ? 0 : '0.65em', rotateX: reduced ? 0 : -14 }, shown: { opacity: 1, y: 0, rotateX: 0 } }}
-      transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 170, damping: 16, mass: .7, delay: delay + Math.min(i * .025, .48) }}>{word}</motion.span>)}
+      variants={{ rest: { opacity: reduced ? 1 : 0, y: reduced ? 0 : '0.8em', rotateX: reduced ? 0 : -14 }, shown: { opacity: 1, y: 0, rotateX: 0 } }}
+      transition={reduced ? { duration: 0 } : { type: 'spring', stiffness: 185, damping: 11, mass: .65, delay: delay + Math.min(i * .03, .54) }}>{word}</motion.span>)}
   </motion.span>;
 }

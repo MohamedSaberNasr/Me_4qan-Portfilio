@@ -23,3 +23,31 @@ main a:focus-visible,main button:focus-visible,nav button:focus-visible,[role=bu
 @media(max-width:767px){.portfolio-light-leaks{opacity:.45}.light-leak-a{width:130vw;left:-90vw}.light-leak-b{width:110vw;right:-75vw}.inquiry-dialog{padding:24px 20px}.inquiry-grid{grid-template-columns:1fr}.inquiry-form input,.inquiry-form textarea,.inquiry-form select{font-size:16px}.hero-intro h1{font-size:clamp(32px,8.5vw,60px)}}
 @media(prefers-reduced-motion:reduce){.reveal-word{transform:none!important;opacity:1!important}.portfolio-light-leaks>div{transform:none!important}.glass:hover,.glass-hover:hover{background-image:none}nav button,main button,main a{scroll-behavior:auto!important}}
 
+
+/* Consistent readable character spacing across the existing typography. */
+body, body :where(h1,h2,h3,h4,h5,h6,p,span,a,button,input,textarea,select,label,li,small,strong,em,dt,dd,th,td){letter-spacing:.035em!important}
+.portfolio-light-leaks{opacity:.8;mix-blend-mode:screen}
+.light-leak-a{background:radial-gradient(ellipse at center,#b57aef38 0%,#7c3aed20 34%,transparent 68%)}
+.light-leak-b{background:radial-gradient(ellipse,#d6b6ff2a,#824bea18 38%,transparent 68%)}
+.optical-flare{position:absolute;width:360px;height:220px;opacity:.5;pointer-events:none;transform-origin:center;will-change:transform,opacity;background:radial-gradient(ellipse,#c8adff16,transparent 68%)}
+.optical-flare-a{left:6%;top:25%}
+.optical-flare-b{right:2%;bottom:14%;width:280px;opacity:.3}
+.optical-flare i{position:absolute;left:-25%;top:50%;width:150%;height:2px;background:linear-gradient(90deg,transparent,#a88bec12 18%,#e1cfffaa 50%,#a88bec12 82%,transparent);box-shadow:0 0 12px 2px #bca1fa22}
+.optical-flare b{position:absolute;left:50%;top:50%;width:52px;height:52px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#f8efff99 0%,#dbbaff33 14%,#a78bfa15 38%,transparent 70%)}
+.optical-flare span{position:absolute;left:72%;top:64%;width:48px;height:48px;border-radius:50%;border:1px solid #c5a4ff18;background:radial-gradient(circle,transparent 52%,#a78bfa0b 62%,transparent 74%);box-shadow:-125px -48px 0 16px #ab87ee05,45px 25px 0 -8px #e1cfff0a}
+@media(max-width:767px){.portfolio-light-leaks{opacity:.55}.optical-flare{width:220px;height:150px}.optical-flare-a{left:-12%;top:22%}.optical-flare-b{right:-18%;bottom:20%}body,body :where(h1,h2,h3,h4,h5,h6,p,span,a,button,input,textarea,select,label,li,small,strong,em,dt,dd,th,td){letter-spacing:.025em!important}}
+@media(prefers-reduced-motion:reduce){.optical-flare{will-change:auto}}
+
+/* Keep the edge lighting visible over opaque section backgrounds. */
+.portfolio-light-leaks{z-index:8;opacity:.9}
+.light-leak-a{width:72vw;height:112vh;left:-29vw;top:-12vh;background:radial-gradient(ellipse at center,#bc83f46b 0%,#8e4bea38 30%,transparent 67%);transform:rotate(-18deg)}
+.light-leak-b{width:62vw;height:100vh;right:-25vw;bottom:-18vh;background:radial-gradient(ellipse at center,#dab8ff52 0%,#924bea30 32%,transparent 68%)}
+.optical-flare-a{left:5%;top:35%}
+.optical-flare-b{right:4%;bottom:16%}
+@media(max-width:767px){.portfolio-light-leaks{opacity:.65}.light-leak-a{width:110vw;height:100vh;left:-64vw;top:-5vh}.light-leak-b{width:100vw;height:90vh;right:-56vw;bottom:-10vh}.optical-flare-a{left:-14%;top:30%}.optical-flare-b{right:-18%}}
+
+@media(hover:hover) and (pointer:fine) and (min-width:1024px) and (prefers-reduced-motion:no-preference){
+  body.custom-cursor-active,body.custom-cursor-active *{cursor:none!important}
+}
+.glowing-cursor{position:relative;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#efe1ff;box-shadow:0 0 9px #d3a6ff,0 0 22px #ac6bfaaa;pointer-events:none}
+.glowing-cursor::before{content:'';position:absolute;left:50%;top:50%;width:140px;height:140px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#b273f52b 0%,#8c48e817 30%,transparent 70%);pointer-events:none}

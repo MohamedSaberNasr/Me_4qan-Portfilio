@@ -11,6 +11,10 @@ import { CustomCursor } from '@/components/portfolio/custom-cursor';
 import { ScrollProgress } from '@/components/portfolio/scroll-progress';
 import { getMainProjects, getExperimentalProjects, getSiteSettings } from '@/lib/data';
 
+// Read published portfolio content on each request, rather than freezing
+// an empty result from a failed Supabase connection during the build.
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const [mainProjects, experimentalProjects, settings] = await Promise.all([
     getMainProjects(),

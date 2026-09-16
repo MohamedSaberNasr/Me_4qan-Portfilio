@@ -9,6 +9,8 @@ export function PortfolioEffects() {
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
         gsap.to('.light-leak-a', { xPercent: 12, yPercent: 15, rotation: 9, duration: 19, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.optical-flare-a', { x: 36, y: -18, scale: 1.08, opacity: 0.7, duration: 12, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        gsap.to('.optical-flare-b', { x: -28, y: 22, scale: 0.92, opacity: 0.35, duration: 17, repeat: -1, yoyo: true, ease: 'sine.inOut' });
         gsap.to('.light-leak-b', { xPercent: -14, yPercent: -12, duration: 24, repeat: -1, yoyo: true, ease: 'sine.inOut' });
       }, ref);
       const pause = () => ctx.getTweens().forEach((t: gsap.core.Tween) => document.hidden ? t.pause() : t.resume());
@@ -28,5 +30,5 @@ export function PortfolioEffects() {
     });
     return () => { mm.revert(); interactive.revert(); };
   }, []);
-  return <div className="portfolio-light-leaks" ref={ref} aria-hidden="true"><div className="light-leak-a"/><div className="light-leak-b"/></div>;
+  return <div className="portfolio-light-leaks" ref={ref} aria-hidden="true"><div className="light-leak-a"/><div className="light-leak-b"/><div className="optical-flare optical-flare-a"><i/><b/><span/></div><div className="optical-flare optical-flare-b"><i/><b/><span/></div></div>;
 }
