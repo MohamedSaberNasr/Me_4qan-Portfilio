@@ -51,3 +51,5 @@ body, body :where(h1,h2,h3,h4,h5,h6,p,span,a,button,input,textarea,select,label,
 }
 .glowing-cursor{position:relative;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:#efe1ff;box-shadow:0 0 9px #d3a6ff,0 0 22px #ac6bfaaa;pointer-events:none}
 .glowing-cursor::before{content:'';position:absolute;left:50%;top:50%;width:140px;height:140px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#b273f52b 0%,#8c48e817 30%,transparent 70%);pointer-events:none}
+
+.inquiry-honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.inquiry-error{font-size:12px;line-height:1.7;color:#fda4af}.inquiry-primary:disabled{opacity:.6;cursor:wait;pointer-events:none}

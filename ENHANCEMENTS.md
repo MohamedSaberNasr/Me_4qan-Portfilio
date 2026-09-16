@@ -15,3 +15,6 @@ Start a Project opens an accessible Radix dialog with required name/email, servi
 ## Checks
 
 TypeScript and production build passed. Browser checks covered font loading, phone-width layout, project detail opening, the inquiry review and edit flow, and console errors. New effects use existing GSAP/Framer Motion; the home route reports about 201 KB first-load JavaScript. Reduced-motion branches were inspected in code; browser media emulation was unavailable. Existing Supabase bundling, metadataBase and img-optimization warnings are non-blocking.
+
+## Direct inquiry email update
+The inquiry form now sends via /api/inquiry and Resend instead of preparing a mailto draft. See EMAIL_SETUP.md; server credentials must be configured and live delivery tested before activation is complete. Earlier descriptions of the draft-only form are superseded.

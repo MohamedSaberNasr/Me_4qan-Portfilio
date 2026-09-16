@@ -8,7 +8,7 @@ This is the complete Next.js source project, including all local logo layers, Su
 4. Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to the Vercel environment settings before building. Your existing public values are provided separately in `SUPABASE_PUBLIC_ENV.txt`. Use the same Supabase project to keep existing portfolio content and admin access.
 5. In Supabase authentication settings, add your final Vercel domain as an allowed redirect URL and set the Site URL as appropriate for your existing authentication flow.
 
-The inquiry form prepares an email draft; visitors still send the email themselves. Video URLs and portfolio content use the existing Supabase service, so those remote resources are not bundled as local video files. The included font source and license information is documented in `ENHANCEMENTS.md`.
+The inquiry form sends directly through a server endpoint after email service setup. Follow EMAIL_SETUP.md and set the server-only RESEND_API_KEY; without it, sending fails visibly. Video URLs and portfolio content use the existing Supabase service, so those remote resources are not bundled as local video files. The included font source and license information is documented in `ENHANCEMENTS.md`.
 
 For local use, copy `.env.example` to `.env.local`, fill in your public Supabase values, run `npm ci`, then `npm run dev`.
 
@@ -21,3 +21,5 @@ Validation: source type checking and linting passed (image optimization warnings
 Before using the dashboard, follow `SECURITY_SETUP.md`. Apply the new admin permission migration and approve your account in the existing Supabase project. Public signup has been removed; database editing is restricted to owner-approved user IDs.
 
 The home page reads Supabase content on each request. A failed connection during a build no longer freezes an empty project list into the deployed page. Missing cards still require published rows in the configured Supabase project.
+
+Email sending requires one-time setup in EMAIL_SETUP.md. Local checks do not prove live inbox delivery.

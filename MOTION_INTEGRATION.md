@@ -20,3 +20,5 @@ TypeScript checking and the Next.js production build passed. Browser inspection 
 The cached conversation provided AL3.png but no downloadable segmented layers. A transparent version was prepared from that PNG and separated into the ring, four leaves, and center. These are raster 2.5D layers, not a true rotating 3D mesh; rotations intentionally remain subtle. The connected center has masked cut boundaries during bloom. Assets preserve the purple glass appearance but background removal involves image reconstruction.
 
 The included original `.env` carries the supplied project's public Supabase configuration. Keep any private deployment credentials out of source control. Supabase availability determines the existing site's portfolio content and admin behavior. No database changes are required.
+
+The inquiry form now uses direct server email sending. Follow EMAIL_SETUP.md; the earlier email-draft workflow has been replaced.
