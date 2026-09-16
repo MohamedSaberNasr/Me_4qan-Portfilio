@@ -19,3 +19,5 @@ The deployment package uses Next.js 15.5.24 and React 18.3.1. Next.js was update
 Validation: source type checking and linting passed (image optimization warnings remain). Archive checks verify assets and package/lockfile consistency. The final production build could not be completed locally because the environment rejects child-process spawning with EPERM; validate the build in Vercel before publishing.
 
 Before using the dashboard, follow `SECURITY_SETUP.md`. Apply the new admin permission migration and approve your account in the existing Supabase project. Public signup has been removed; database editing is restricted to owner-approved user IDs.
+
+The home page reads Supabase content on each request. A failed connection during a build no longer freezes an empty project list into the deployed page. Missing cards still require published rows in the configured Supabase project.
